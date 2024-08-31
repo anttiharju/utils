@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Git Clean
+# Git Clear
 # When what you've been drafting is not worth a commit.
 
 # Ensure we're in a git repository
