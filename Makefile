@@ -6,4 +6,7 @@ MAKEFLAGS += --warn-undefined-variables
 setup:
 	./install.sh
 
-.PHONY: setup
+shellcheck:
+	./scripts/shellcheck.sh
+
+.PHONY: setup shellcheck
