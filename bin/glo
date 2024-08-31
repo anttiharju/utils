@@ -1,12 +1,12 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 # Git Log Oneline
 # Either print specified number of commits 'glo 5' or rely on sensible defaults.
 
 # Determine default branch
-if git rev-parse --is-inside-work-tree &> /dev/null; then
+if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
 	default_branch=$(git rev-parse --abbrev-ref origin/HEAD)
-	default_branch=${default_branch#"origin/"}
+	default_branch=$(echo "$default_branch" | sed 's|^origin/||')
 else
 	echo "Error: glo must be run in a Git repository."
 	exit 1
@@ -26,27 +26,27 @@ execute() {
 # If number of commits is specified, show exactly that many commits.
 # Intended to take precedence over other options.
 if [ -n "$1" ]; then
-	git_cmd+=" -$1"
+	git_cmd="$git_cmd -$1"
 	execute
 fi
 
 # Function for preventing scrolling of printed commits.
 no_scroll() {
-	terminal_height=$(( $(tput lines) - 2)) # Deduct 2 (1 for cmd, 1 for prompt).
+	terminal_height=$(($(tput lines) - 2)) # Deduct 2 (1 for cmd, 1 for prompt).
 	line_count=$(eval "$git_cmd | wc -l") # Count how many commits would be printed.
 
 	if [ "$line_count" -gt "$terminal_height" ]; then
-		git_cmd+=" -$terminal_height"
+		git_cmd="$git_cmd -$terminal_height"
 	fi
 }
 
 # If on default branch, show all commits.
-if [[ "$(git rev-parse --abbrev-ref HEAD)" == "$default_branch" ]]; then
+if [ "$(git rev-parse --abbrev-ref HEAD)" = "$default_branch" ]; then
 	no_scroll # Or however many fit in the terminal.
 	execute
 fi
 
 # Otherwise on some other branch, therefore compare to default branch.
-git_cmd+=" $default_branch.."
+git_cmd="$git_cmd $default_branch.."
 no_scroll
 execute
