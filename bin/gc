@@ -11,4 +11,4 @@ fi
 
 git add --all
 git stash
-git stash drop stash@{0}
+git stash drop "stash@{0}"
