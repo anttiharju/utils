@@ -1,6 +1,6 @@
 # helpers
 
-Various utilities I've usually rewritten from scratch per computer. Assumes macOS, some helpers may work on other systems.
+Various utilities I've usually rewritten from scratch per computer. Assumes macOS, some [helpers](./bin) may work on other systems.
 
 # How to install
 
