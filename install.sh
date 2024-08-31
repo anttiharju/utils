@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-# append this to .zshrc if it's not already there, note the pwd has to be the actual directory not the command
-
+# Append $pathExport to .zshrc if it's not already there.
 pathExport="export PATH=\"$(pwd)/bin:\$PATH\""
 
 if grep -q "$pathExport" ~/.zshrc; then
@@ -10,4 +9,4 @@ if grep -q "$pathExport" ~/.zshrc; then
 fi
 
 echo "$pathExport" >> ~/.zshrc
-echo "" >> ~/.zshrc
+echo "" >> ~/.zshrc # Ensure final newline.
