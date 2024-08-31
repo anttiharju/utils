@@ -10,6 +10,6 @@ configure_hooks:
 	git config --local core.hooksPath .githooks/
 
 shellcheck:
-	./scripts/shellcheck.sh
+	@./scripts/shellcheck.sh
 
 .PHONY: setup configure_hooks shellcheck
