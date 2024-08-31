@@ -1,6 +1,13 @@
 # helpers
 
-Various utilities I've usually rewritten from scratch per computer. Assumes macOS, some [helpers](./bin) may work on other systems.
+Various utilities I've usually rewritten from scratch per computer.
+
+## Assumes
+
+* macOS
+* zsh
+
+Some [helpers](./bin) may or may not work on other configurations.
 
 # How to install
 
