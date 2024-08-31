@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+# Git Clean
+# When what you've been drafting is not worth a commit.
+
+git add --all
+git stash
+git stash drop stash@{0}
