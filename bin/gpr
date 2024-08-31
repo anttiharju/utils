@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+# Git PR
+# Open existing or a new PR on GitHub.
+
+# Determine default branch.
+if git rev-parse --is-inside-work-tree &> /dev/null; then
+	default_branch=$(git rev-parse --abbrev-ref origin/HEAD)
+	default_branch=${default_branch#"origin/"}
+else
+	echo "Error: gpr must be run in a Git repository."
+fi
+
+# Get origin URL and ensure it's in GitHub.
+origin=$(git remote get-url origin)
+if [[ $origin != *"github.com"* ]]; then
+  echo "Error: gpr requires origin url in GitHub."
+  exit 1
+fi
+
+# Get current branch name.
+branch=$(git rev-parse --abbrev-ref HEAD)
+
+# If on default branch, simply open the repo
+if [[ "$branch" == "$default_branch" ]]; then
+	open "$origin"
+	exit $?
+fi
+
+# Otherwise open the URL for creating a new PR or opening an existing one.
+pr_url="$origin/pull/new/$branch"
+open "$pr_url"
