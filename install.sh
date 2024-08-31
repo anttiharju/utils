@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 # Append $pathExport to .zshrc if it's not already there.
 pathExport="export PATH=\"$(pwd)/bin:\$PATH\""
