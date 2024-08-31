@@ -1,4 +1,4 @@
-# helpers
+# utils
 
 Various utilities I've usually rewritten from scratch per computer.
 
@@ -7,7 +7,7 @@ Various utilities I've usually rewritten from scratch per computer.
 * macOS
 * zsh
 
-Some [helpers](./bin) may or may not work on other configurations.
+Some [utils](./bin) may or may not work on other configurations.
 
 # How to install
 
