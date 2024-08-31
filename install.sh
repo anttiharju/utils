@@ -4,8 +4,8 @@
 pathExport="export PATH=\"$(pwd)/bin:\$PATH\""
 
 if grep -q "$pathExport" ~/.zshrc; then
-  echo "Already in .zshrc"
-  exit 0
+	echo "Already in .zshrc"
+	exit 0
 fi
 
 echo "$pathExport" >> ~/.zshrc

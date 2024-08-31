@@ -14,8 +14,8 @@ fi
 # Get origin URL and ensure it's in GitHub.
 origin=$(git remote get-url origin)
 if [[ $origin != *"github.com"* ]]; then
-  echo "Error: gpr requires origin url in GitHub."
-  exit 1
+	echo "Error: gpr requires origin url in GitHub."
+	exit 1
 fi
 
 # Get current branch name.
