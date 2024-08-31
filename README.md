@@ -12,4 +12,4 @@ Some [helpers](./bin) may or may not work on other configurations.
 # How to install
 
 1. Clone this repo.
-2. Run `make`.
+2. Run `make`
