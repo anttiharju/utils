@@ -12,6 +12,10 @@ configure_hooks:
 shellcheck:
 	@./scripts/shellcheck.sh
 
+docs:
+	@./scripts/g.sh
+	@bin/g
+
 ci: shellcheck
 
-.PHONY: setup configure_hooks shellcheck ci
+.PHONY: setup configure_hooks shellcheck docs ci
