@@ -14,11 +14,18 @@ fi
 
 # Base git log command
 # * Oneline is neat
-# * Reverse is to match GitHub UI order (commits tab in a PR).
-git_cmd="git log --oneline --reverse"
+git_cmd="git log --oneline"
+
+# If on branch other than default branch, reverse order to match PR commits tab commit order.
+match_ui() {
+	if [ "$(git rev-parse --abbrev-ref HEAD)" != "$default_branch" ]; then
+		git_cmd="$git_cmd --reverse"
+	fi
+}
 
 # Function for executing git command and to exit with its status code.
 execute() {
+	match_ui
 	eval "$git_cmd"
 	exit $?
 }
