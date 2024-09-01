@@ -33,10 +33,13 @@ execute() {
 	exit $?
 }
 
+# Set n to empty string if $1 is unbound.
+n="${1:-}"
+
 # If number of commits is specified, show exactly that many commits.
 # Intended to take precedence over other options.
-if [ -n "$1" ]; then
-	git_cmd="$git_cmd -$1"
+if [ -n "$n" ]; then
+	git_cmd="$git_cmd -$n"
 	execute
 fi
 
