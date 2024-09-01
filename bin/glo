@@ -1,4 +1,5 @@
 #!/bin/sh
+set -eu
 
 # Git Log Oneline
 # Either print specified number of commits 'glo 5' or rely on sensible defaults.
