@@ -12,13 +12,15 @@ else
 	exit 1
 fi
 
+# Determine current branch
+branch=$(git rev-parse --abbrev-ref HEAD)
+
 # Base git log command
-# * Oneline is neat
 git_cmd="git log --oneline"
 
 # If on branch other than default branch, reverse order to match PR commits tab commit order.
 match_ui() {
-	if [ "$(git rev-parse --abbrev-ref HEAD)" != "$default_branch" ]; then
+	if [ "$branch" != "$default_branch" ]; then
 		git_cmd="$git_cmd --reverse"
 	fi
 }
@@ -48,7 +50,7 @@ no_scroll() {
 }
 
 # If on default branch, show all commits.
-if [ "$(git rev-parse --abbrev-ref HEAD)" = "$default_branch" ]; then
+if [ "$branch" = "$default_branch" ]; then
 	no_scroll # Or however many fit in the terminal.
 	execute
 fi
