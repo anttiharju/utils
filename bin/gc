@@ -1,4 +1,5 @@
 #!/bin/sh
+set -eu
 
 # Git Clear
 # When what you've been drafting is not worth a commit.
