@@ -18,8 +18,12 @@ set -eu
 		[ "$path" = "bin/g" ] && continue
 		[ "$init" = "true" ] && printf "\n"
 		file=$(basename "$path")
+		name=$(sed -n '4s/^# //p' "$path")
+		explanation=$(sed -n '5s/^# //p' "$path")
 
-		printf %s "$file"
+		RED='\033[0;31m'
+		NC='\033[0m' # No Color
+		printf "%s\t${RED}%s${NC} %s" "$file" "$name" "$explanation"
 
 		init=true
 	done
