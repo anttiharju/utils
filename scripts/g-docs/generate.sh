@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-# G utils
+# G util docs
 # Script to generate the 'g' script for displaying the available Git utils.
 
 {
