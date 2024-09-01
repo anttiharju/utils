@@ -1,0 +1,24 @@
+name: Update docs
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    paths:
+      - 'bin/g*'
+permissions:
+  contents: write
+
+jobs:
+  g:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Git config
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Update g docs
+        run: scripts/update-g-docs.sh
+      - name: Push changes (if any)
+        run: git push
