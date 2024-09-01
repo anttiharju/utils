@@ -1,4 +1,5 @@
 #!/bin/sh
+set -eu
 
 # Git PR
 # Open existing or a new PR for current branch on GitHub, or on default branch the repo.
