@@ -13,7 +13,7 @@ shellcheck:
 	@./scripts/shellcheck.sh
 
 docs:
-	@./scripts/g.sh
+	@./scripts/g-docs/generate.sh
 	@bin/g
 
 ci: shellcheck

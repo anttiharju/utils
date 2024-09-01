@@ -1,6 +1,6 @@
 #!/bin/sh
 set -eu
 
-./scripts/update-g-docs.sh "
+./scripts/g-docs/commit.sh "
 
 via .githooks/pre-push"

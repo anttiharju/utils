@@ -6,7 +6,7 @@ if ! git diff --quiet --staged; then
 	exit 1
 fi
 
-./scripts/g.sh
+./scripts/g-docs/generate.sh
 
 if git diff --quiet -- bin/g; then
 	exit 0
