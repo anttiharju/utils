@@ -19,6 +19,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
       - name: Update g docs
-        run: scripts/update-g-docs.sh
+        run: scripts/g-docs/commit.sh
       - name: Push changes (if any)
         run: git push
