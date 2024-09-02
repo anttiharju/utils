@@ -10,7 +10,7 @@ execute_if_modified() {
 	# shellcheck disable=2086 # Expanding patterns is the desired behavior here
 	unstaged_changes=$(git diff --name-only -- $patterns)
 	# shellcheck disable=2086
-	staged_changes=$(git diff --staged --name-only -- $patterns)
+	staged_changes=$(git diff --name-only --staged -- $patterns)
 
 	if [ -n "$untracked_changes" ] || [ -n "$unstaged_changes" ] || [ -n "$staged_changes" ]; then
 		echo "Changes detected in $patterns. Executing $command..."
