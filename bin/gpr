@@ -24,15 +24,25 @@ case "$origin" in
 		;;
 esac
 
+# Extract the repository URL in a format that can be opened in a browser.
+if echo "$origin" | grep -q 'git@github.com:'; then
+	repo_url="https://github.com/$(echo "$origin" | sed 's/^.*github.com://;s/.git$//')"
+elif echo "$origin" | grep -q 'https://github.com/'; then
+	repo_url=$(echo "$origin" | sed 's/.git$//')
+else
+	echo "Error: gpr only supports ssh and https-cloned repos."
+	exit 1
+fi
+
 # Get current branch name.
 branch=$(git rev-parse --abbrev-ref HEAD)
 
 # Open the repo on default branch.
 if [ "$branch" = "$default_branch" ]; then
-	open "$origin"
+	open "$repo_url"
 	exit $?
 fi
 
 # Open the URL that either directs to the existing PR or to the wizard to open a new one.
-pr_url="$origin/pull/new/$branch"
+pr_url="$repo_url/pull/new/$branch"
 open "$pr_url"
