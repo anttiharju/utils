@@ -18,4 +18,7 @@ docs:
 
 ci: shellcheck
 
-.PHONY: setup configure_hooks shellcheck docs ci
+clean:
+	rm -rf ./cache/*
+
+.PHONY: setup configure_hooks shellcheck docs ci clean
