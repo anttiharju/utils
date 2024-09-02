@@ -19,7 +19,7 @@ execute_if_modified() {
 }
 
 # Not executing everything always is what keeps this script fast.
-echo "Use --no-verify to skip the pre-commit hook."
+echo "--no-verify can be used to skip git hooks."
 execute_if_modified 'make shellcheck' '*.sh' './.githooks/*' './bin/*'
 
 if ! git diff --quiet || [ -n "$(git ls-files --others --exclude-standard)" ]; then
