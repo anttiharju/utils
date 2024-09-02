@@ -21,13 +21,16 @@ execute_if_modified() {
 echo "--no-verify can be used to skip git hooks."
 execute_if_modified 'make shellcheck' '*.sh' './.githooks/*' './bin/*'
 
+prefix="You have"
+postfix="changes; commit contents might not pass 'make ci'."
+
 if ! git diff --quiet; then
-	echo "You have unstaged changes; commit contents might not pass 'make ci'."
+	echo "$prefix unstaged $postfix"
 	exit 1
 fi
 
 if [ -n "$(git ls-files --others --exclude-standard)" ]; then
-	echo "You have untracked changes; commit contents might not pass 'make ci'."
+	echo "$prefix untracked $postfix"
 	exit 1
 fi
 
