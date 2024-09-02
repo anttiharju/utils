@@ -1,8 +1,8 @@
 #!/bin/sh
 set -eu
 
-# G util docs
-# Script to generate the 'g' script for displaying the available Git utils.
+# G util docs:
+# script to generate the 'g' script for displaying the available Git utils.
 
 {
 	shebang="#!/bin/sh"
