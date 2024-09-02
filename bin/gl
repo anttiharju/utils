@@ -2,14 +2,14 @@
 set -eu
 
 # Git Log Oneline
-# sensible defaults based on context. Alternatively print N commits 'glo 5'.
+# sensible defaults based on context. Alternatively print N commits 'gl 5'.
 
 # Determine default branch
 if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
 	default_branch=$(git rev-parse --abbrev-ref origin/HEAD)
 	default_branch=$(echo "$default_branch" | sed 's|^origin/||')
 else
-	echo "Error: glo must be run in a Git repository."
+	echo "Error: gl must be run in a Git repository."
 	exit 1
 fi
 
