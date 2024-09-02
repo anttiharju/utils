@@ -7,9 +7,9 @@ execute_if_modified() {
 	patterns="$*"
 
 	# shellcheck disable=2086 # Expanding patterns is the desired behavior here
-	unstaged_changes=$(git diff --name-only -- $patterns)
+	unstaged_changes=$(git diff -z --name-only -- $patterns)
 	# shellcheck disable=2086
-	staged_changes=$(git diff --name-only --staged -- $patterns)
+	staged_changes=$(git diff -z --name-only --staged -- $patterns)
 
 	if [ -n "$unstaged_changes" ] || [ -n "$staged_changes" ]; then
 		echo "Changes detected in $patterns. Executing $command..."
@@ -31,6 +31,7 @@ if [ -n "$(git ls-files --others --exclude-standard)" ]; then
 	exit 1
 fi
 
-# Known issues:
-# * Doesn't handle files with a space in the name well
-# * Having to configure what shellcheck scans for in two places is bit of a pain. One source of truth please.
+# Improvement idea: only one source of truth for granularity. Currently there's three:
+#  1. this file
+#  2. .github/workflows/shellcheck.yml <- this one we can't get rid of, i.e., it must be used as the source of truth?
+#  3. scripts/shellcheck.sh
