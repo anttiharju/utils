@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-# Git Log Oneline
+# Git Log Oneline:
 # sensible defaults based on context. Alternatively print N commits 'gl 5'.
 
 # Determine default branch
