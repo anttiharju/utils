@@ -22,4 +22,6 @@ if [ ! -f "$CACHE_FILE" ]; then
 
 	OUTPUT=$(print_user_and_orgs)
 	echo "$OUTPUT" > "$CACHE_FILE"
+	echo "Cached the following user and orgs at $CACHE_FILE:"
+	echo "$OUTPUT"
 fi
