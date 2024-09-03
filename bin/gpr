@@ -44,5 +44,5 @@ if [ "$branch" = "$default_branch" ]; then
 fi
 
 # Open the URL that either directs to the existing PR or to the wizard to open a new one.
-pr_url="$repo_url/pull/new/$branch"
+pr_url="$repo_url/pull/$branch"
 open "$pr_url"
