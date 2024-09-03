@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env dash
 set -eu
 
 if ! git diff --quiet --staged; then
