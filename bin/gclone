@@ -54,7 +54,7 @@ done < "$CACHE_FILE"
 repo_exists() {
     owner=$1
     repo=$2
-    response=$(curl -s -o /dev/null -w "%{http_code}" "https://api.github.com/repos/$owner/$repo")
+    response=$(gh api -H "Accept: application/vnd.github.v3+json" "/repos/$owner/$repo" --silent --include 2>/dev/null | head -n 1 | awk '{print $2}')
     [ "$response" -eq 200 ]
 }
 
@@ -62,7 +62,7 @@ repo_exists() {
 for owner in $possible_owners; do
     SSH_URL="git@github.com:$owner/$REPO.git"
     if repo_exists "$owner" "$REPO"; then
-		echo "Cloning from $owner..."
+		echo "Cloning from '$owner'..."
         git clone "$SSH_URL"
         exit 0
     fi
