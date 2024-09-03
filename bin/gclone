@@ -2,10 +2,29 @@
 set -eu
 
 # [WIP] Git CLONE:
-# Clone a repo based on url or repo name, automatically determine clone method (https with ssh fallback)
+# Clone a repo via SSH based on https URL or repo name.
+
+# Check if input argument is provided
+if [ $# -eq 0 ]; then
+  echo "Usage: $(basename "$0") <repo https URL or name>"
+  exit 1
+fi
+REPO=$1
+
+# If URL was provided, convert to SSH and clone
+if echo "$REPO" | grep -qE '^https://'; then
+	SSH_URL=$(echo "$REPO" | sed -E 's|https://([^/]+)/([^/]+)/(.+)|git@\1:\2/\3|')
+	# Clone the repository using the SSH URL
+	git clone "$SSH_URL"
+	exit 0
+fi
+
+# From now on assuming $REPO is just the repo name.
+# ex.: for "https://github.com/owner/repo" $REPO is "repo").
+# Owner can be user or org.
 
 CACHE_FILE="$(dirname "$(dirname "$0")")/cache/$(basename "$0")"
-
+# Fetch user from git config and user's orgs from gh api through gh cli.
 if [ ! -f "$CACHE_FILE" ]; then
 	mkdir -p "$(dirname "$CACHE_FILE")"
 
@@ -25,3 +44,21 @@ if [ ! -f "$CACHE_FILE" ]; then
 	echo "Cached the following user and orgs at $CACHE_FILE:"
 	echo "$OUTPUT"
 fi
+
+# Read the cache file into an array.
+possible_owners=""
+while IFS= read -r line; do
+	possible_owners="$possible_owners $line"
+done < "$CACHE_FILE"
+
+# Try cloning $REPO from each possible owner. Starts from the user.
+for owner in $possible_owners; do
+    SSH_URL="git@github.com:$owner/$REPO.git"
+    if git clone "$SSH_URL"; then
+		echo "Cloned $REPO from $owner."
+        exit 0
+    fi
+done
+
+echo "Failed to clone $REPO from any of the possible owners."
+exit 1
