@@ -1,11 +1,11 @@
-#!/bin/sh
+#!/usr/bin/env dash
 set -eu
 
 # G util docs:
 # script to generate the 'g' script for displaying the available Git utils.
 
 {
-	shebang="#!/bin/sh"
+	shebang="#!/usr/bin/env dash"
 
 	echo "$shebang"
 	echo "set -eu"
