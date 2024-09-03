@@ -51,14 +51,23 @@ while IFS= read -r line; do
 	possible_owners="$possible_owners $line"
 done < "$CACHE_FILE"
 
-# Try cloning $REPO from each possible owner. Starts from the user.
+repo_exists() {
+    owner=$1
+    repo=$2
+    response=$(curl -s -o /dev/null -w "%{http_code}" "https://api.github.com/repos/$owner/$repo")
+    [ "$response" -eq 200 ]
+}
+
+# Check if $REPO exists from each possible owner and clone it once found. Starts from the user.
 for owner in $possible_owners; do
     SSH_URL="git@github.com:$owner/$REPO.git"
-    if git clone "$SSH_URL"; then
-		echo "Cloned $REPO from $owner."
+    if repo_exists "$owner" "$REPO"; then
+		echo "Cloning from $owner..."
+        git clone "$SSH_URL"
         exit 0
     fi
 done
 
-echo "Failed to clone $REPO from any of the possible owners."
+echo "Failed to clone '$REPO' from any of the possible owners:"
+echo "$possible_owners"
 exit 1
