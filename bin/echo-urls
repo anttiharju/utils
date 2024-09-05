@@ -1,0 +1,15 @@
+#!/usr/bin/env dash
+
+SCRIPT_DIR=$(dirname "$(realpath "$0")")
+
+# Run the AppleScript and capture the output
+urls=$(osascript "$SCRIPT_DIR/../scripts/get_safari_urls.scpt")
+
+# Convert the output to a list
+IFS=', '
+
+# Print the URLs (optional)
+for url in $urls; do
+    echo
+    echo "$url"
+done
