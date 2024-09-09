@@ -43,6 +43,34 @@ if [ "$branch" = "$default_branch" ]; then
 	exit $?
 fi
 
-# Open the URL that either directs to the existing PR or to the wizard to open a new one.
-pr_url="$repo_url/pull/$branch"
+owner=$(echo "$repo_url" | cut -d'/' -f4)
+repo=$(echo "$repo_url" | cut -d'/' -f5)
+
+pr_url=$(gh api "repos/$owner/$repo/pulls?head=$owner:$branch" --jq '.[0].html_url')
+
+if [ -z "$pr_url" ]; then
+  # TODO: push branch if it hasn't been pushed to remote.
+  open "$repo_url/pull/$branch"
+  exit 0
+fi
+
+# Iterate through currently open URLs in Safari and open the one that matches the PR URL.
+SCRIPT_DIR=$(dirname "$(realpath "$0")")
+
+# Get urls of open Safari tabs via AppleScript.
+bin="$SCRIPT_DIR/../cache/gpr.scpt"
+if [ ! -e "$bin" ]; then
+	osacompile -o "$bin" "$SCRIPT_DIR/../scripts/get_safari_urls.applescript"
+fi
+urls=$(osascript "$bin")
+IFS=', ' # Convert the output to a list
+
+for url in $urls; do
+    if echo "$url" | grep -q "$pr_url"; then
+        open "$url"
+        exit 0
+    fi
+done
+
+# Otherwise fall back to old behavior.
 open "$pr_url"
