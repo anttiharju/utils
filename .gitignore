@@ -2,3 +2,4 @@
 !.vscode/extensions.json
 cache/*
 !cache/.gitkeep
+*.DS_Store
