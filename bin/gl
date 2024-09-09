@@ -1,7 +1,7 @@
 #!/usr/bin/env dash
 set -eu
 
-# Git Log Oneline:
+# Git Log:
 # sensible defaults based on context. Alternatively print N commits 'gl 5'.
 
 # Determine default branch
