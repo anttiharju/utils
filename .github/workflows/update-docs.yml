@@ -21,4 +21,4 @@ jobs:
       - name: Update g docs
         run: scripts/g-docs/commit.sh
       - name: Push changes (if any)
-        run: git push
+        run: git push origin HEAD:${GITHUB_REF#refs/heads/}
