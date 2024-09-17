@@ -1,7 +1,7 @@
 #!/usr/bin/env dash
 set -eu
 
-# Git CLONE:
+# Git CLONE: blablabla
 # Clone a repo via SSH based on https URL or just the repo name.
 
 # Check if input argument is provided
