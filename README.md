@@ -5,7 +5,7 @@ Various utilities I've usually rewritten from scratch per computer.
 ## Assumptions
 
 * macOS
-* zsh
+* zsh or fish
 
 Some [utils](./bin) may or may not work on other configurations.
 
