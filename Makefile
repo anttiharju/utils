@@ -4,7 +4,7 @@ SHELL := bash
 MAKEFLAGS += --warn-undefined-variables
 
 setup: configure_hooks
-	./install.sh
+	./scripts/install.sh
 
 configure_hooks:
 	git config --local core.hooksPath .githooks/
