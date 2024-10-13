@@ -5,8 +5,8 @@ set -eu
 # Sometimes I remove email addresses from my GitHub profile. This makes the contributions in my profile disappear as the email address is no longer associated with my account. This script replaces commits with input email with current git config.
 
 if [ -z "$1" ]; then
-  echo "Error: old_email argument is required."
-  exit 1
+	echo "Error: old_email argument is required."
+	exit 1
 fi
 
 old_email="$1"
