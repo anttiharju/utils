@@ -49,9 +49,9 @@ repo=$(echo "$repo_url" | cut -d'/' -f5)
 pr_url=$(gh api "repos/$owner/$repo/pulls?head=$owner:$branch" --jq '.[0].html_url')
 
 if [ -z "$pr_url" ]; then
-  # TODO: push branch if it hasn't been pushed to remote.
-  open "$repo_url/pull/$branch"
-  exit 0
+	# TODO: push branch if it hasn't been pushed to remote.
+	open "$repo_url/pull/$branch"
+	exit 0
 fi
 
 # Iterate through currently open URLs in Safari and open the one that matches the PR URL.
@@ -66,10 +66,10 @@ urls=$(osascript "$bin")
 IFS=', ' # Convert the output to a list
 
 for url in $urls; do
-    if echo "$url" | grep -q "$pr_url"; then
-        open "$url"
-        exit 0
-    fi
+	if echo "$url" | grep -q "$pr_url"; then
+		open "$url"
+		exit 0
+	fi
 done
 
 # Otherwise fall back to old behavior.
