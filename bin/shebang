@@ -4,5 +4,5 @@ set -eu
 # SHEBANG:
 # Copies to clipboard the preferred shebang so I don't have to Google it all the time.
 
-# Way too easy to mess it up
-echo -n "#!/usr/bin/env bash" | pbcopy
+echo "Copied '#!/usr/bin/env bash' to clipboard."
+echo -n "#!/usr/bin/env bash" | pbcopy # way too easy to typo it
