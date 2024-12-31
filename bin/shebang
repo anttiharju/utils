@@ -1,0 +1,8 @@
+#!/usr/bin/env dash
+set -eu
+
+# SHEBANG:
+# Copies to clipboard the preferred shebang so I don't have to Google it all the time.
+
+# Way too easy to mess it up
+echo -n "#!/usr/bin/env bash" | pbcopy
