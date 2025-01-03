@@ -1,0 +1,7 @@
+#!/usr/bin/env dash
+
+# UNTILFAIL:
+# Run command in loop until it fails
+
+# call commands in "" if you want to use &&
+while sh -c "$@"; do :; done
