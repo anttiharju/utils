@@ -58,11 +58,20 @@ fi
 SCRIPT_DIR=$(dirname "$(realpath "$0")")
 
 # Get urls of open Safari tabs via AppleScript.
-bin="$SCRIPT_DIR/helpers/get_safari_urls.scpt"
-if [ ! -e "$bin" ]; then
-	osacompile -o "$bin" "$SCRIPT_DIR/helpers/get_safari_urls.applescript"
-fi
-urls=$(osascript "$bin")
+urls=$(osascript << 'EOA'
+tell application "Safari"
+    set windowList to every window
+    set urlList to {}
+    repeat with aWindow in windowList
+        set tabList to every tab in aWindow
+        repeat with aTab in tabList
+            set end of urlList to URL of aTab
+        end repeat
+    end repeat
+    return urlList
+end tell
+EOA
+)
 IFS=', ' # Convert the output to a list
 
 for url in $urls; do
