@@ -5,4 +5,4 @@ runs:
   using: "composite"
   steps:
     - shell: sh
-      run: find . -type f -maxdepth 1 ! -name "LICENSE" -exec shellcheck {} +
+      run: find . -type f -maxdepth 1 ! -name "LICENSE" ! -name "README.md" -exec shellcheck {} +
