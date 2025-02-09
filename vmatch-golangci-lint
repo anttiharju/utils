@@ -1,0 +1,86 @@
+#!/bin/bash
+set -eo pipefail
+
+# TODO: Spin this off into its own repo, add caching, test suite, clean up ...
+
+REPO_ROOT=$(pwd)
+ORIGINAL_PATH=$REPO_ROOT
+DESIRED_VERSION=$VERSION
+
+main() {
+	BINARY="$REPO_ROOT/golangci-lint"
+
+	if [ -z "$VERSION" ]; then
+		echo "Missing version info, grepping Makefile (source-of-truth)"
+		# Makefile being the source-of-truth is nice, because then the
+		# version is displayed upon running 'make lint'.
+		MAKEFILE_LOCATION="$REPO_ROOT/Makefile"
+		DESIRED_VERSION=$(grep GOLANGCI_LINT= "$MAKEFILE_LOCATION" | cut -c15-)
+	fi
+
+	if ! binary_exists; then
+		install_desired_version
+	else
+		if ! binary_version_is_correct; then
+			rm "$BINARY"
+			install_desired_version
+		fi
+	fi
+
+	run_linter "$@"
+}
+
+binary_exists() {
+	if command -v "$BINARY" &> /dev/null; then
+		return 0
+	else
+		echo "Downloading missing golangci-lint binary"
+		return 1
+	fi
+}
+
+binary_version_is_correct() {
+	INSTALLED_VERSION="$(get_binary_version)"
+
+	if [[ "$INSTALLED_VERSION" == "$DESIRED_VERSION" ]]; then
+		return 0
+	else
+		echo "Replacing outdated golangci-lint (v$INSTALLED_VERSION) binary"
+		return 1
+	fi
+}
+
+get_binary_version() {
+	# Example of assumed sentence format: "golangci-lint has version 1.56.1 built with go1.22.0 from a25592b5 on 2024-02-08T18:03:33Z"
+	sentence="$($BINARY --version)"
+	first_word_with_dot=$(echo "$sentence" | awk '{for(i=1;i<=NF;i++){if($i ~ /\./){print $i;exit}}}')
+	echo "$first_word_with_dot"
+}
+
+install_desired_version() {
+	curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b "$REPO_ROOT" "v$DESIRED_VERSION"
+}
+
+run_linter() {
+	$BINARY "$@"
+}
+
+find_repo_root_based_on_go_mod_file() {
+	if [ -f go.mod ]; then
+			cd "$ORIGINAL_PATH"
+	else
+		if [ "${REPO_ROOT}" == "/" ]; then
+			# Should never happen
+			echo "golangci-lint.sh: could not locate repository root directory"
+			exit 1
+		fi
+		new_dir=$(dirname "${REPO_ROOT}")
+		cd ..
+		REPO_ROOT=${new_dir}
+		find_repo_root_based_on_go_mod_file
+	fi
+}
+
+find_repo_root_based_on_go_mod_file
+
+main "$@"
