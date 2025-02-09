@@ -54,9 +54,6 @@ if [ -z "$pr_url" ]; then
 	exit 0
 fi
 
-# Iterate through currently open URLs in Safari and open the one that matches the PR URL.
-SCRIPT_DIR=$(dirname "$(realpath "$0")")
-
 # Get urls of open Safari tabs via AppleScript.
 urls=$(osascript << 'EOA'
 tell application "Safari"
