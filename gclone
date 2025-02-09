@@ -23,8 +23,7 @@ fi
 # ex.: for "https://github.com/owner/repo" $REPO is "repo").
 # Owner can be user or org.
 
-SCRIPT_DIR=$(dirname "$(realpath "$0")")
-CACHE_FILE="$SCRIPT_DIR/helpers/gclone.cache"
+CACHE_FILE=~/.scripts/gclone.cache
 # Fetch user from git config and user's orgs from gh api through gh cli.
 if [ ! -f "$CACHE_FILE" ]; then
 	mkdir -p "$(dirname "$CACHE_FILE")"
