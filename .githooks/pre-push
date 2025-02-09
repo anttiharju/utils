@@ -1,6 +1,0 @@
-#!/usr/bin/env dash
-set -eu
-
-./scripts/g-docs/commit.sh "
-
-via .githooks/pre-push"
