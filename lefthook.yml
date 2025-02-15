@@ -1,0 +1,9 @@
+output:
+  - success
+  - failure
+
+pre-commit:
+  jobs:
+    - name: shellcheck
+      run: |
+        grep -l "^#!" * | xargs shellcheck -x
