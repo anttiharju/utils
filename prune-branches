@@ -1,7 +1,7 @@
 #!/usr/bin/env dash
 set -eu
 
-# clean-branches
+# prune-branches
 # delete all local branches except the current one
 
 git branch | grep -v "^\*" | xargs git branch -D
