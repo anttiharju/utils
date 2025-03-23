@@ -1,9 +1,0 @@
-name: shellcheck
-description: Run shellcheck
-
-runs:
-  using: "composite"
-  steps:
-    - shell: sh
-      run: |
-        grep -l "^#!" * | xargs shellcheck -x
