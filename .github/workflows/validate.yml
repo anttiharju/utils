@@ -12,5 +12,5 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: shellcheck
-        uses: ./.github/actions/shellcheck
+      - name: ShellCheck
+        uses: anttiharju/actions/check-shellcheck@v0
