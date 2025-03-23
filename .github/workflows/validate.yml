@@ -14,3 +14,11 @@ jobs:
 
       - name: ShellCheck
         uses: anttiharju/actions/check-shellcheck@v0
+
+      - if: always()
+        name: Prettier
+        uses: anttiharju/actions/check-prettier@v0
+
+      - if: always()
+        name: EditorConfig
+        uses: anttiharju/actions/check-editorconfig@v0
