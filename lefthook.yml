@@ -5,11 +5,8 @@ output:
 pre-commit:
   jobs:
     - name: ShellCheck
-      run: |
-        for file in {staged_files}; do
-          (cd "$(dirname "$file")" && shellcheck --color=always -x "$(basename "$file")")
-        done
-      glob: "{scripts/*,*.sh}"
+      glob: "{*.sh,*.bash}"
+      run: shellcheck --color=always --source-path=SCRIPTDIR --external-sources {staged_files}
 
     - name: Prettier
       run: npx --yes prettier --write .
@@ -18,3 +15,20 @@ pre-commit:
 
     - name: EditorConfig
       run: git ls-files -z | npx --yes editorconfig-checker
+
+    - name: Maintain bin
+      glob: "scripts/*"
+      run: lefthook run symlink
+
+symlink:
+  commands:
+    scripts:
+      run: |
+        rm -rf bin
+        mkdir bin
+        for script in scripts/*; do
+          name=$(basename "$script")
+          bin="${name%.*}"
+          target="bin/$bin"
+          ln -sf "../$script" "$target"
+        done
