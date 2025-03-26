@@ -1,15 +1,6 @@
 #!/bin/sh
 set -eu
 
-# Git Discard:
-# discard all uncommited changes.
+# Git Discard
 
-# Ensure we're in a git repository.
-if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-    echo "Error: gd must be run in a Git repository."
-    exit 1
-fi
-
-git add --all
-git stash
-git stash drop
+git checkout .
