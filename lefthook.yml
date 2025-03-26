@@ -9,12 +9,12 @@ pre-commit:
       run: shellcheck --color=always --source-path=SCRIPTDIR --external-sources {staged_files}
 
     - name: Prettier
-      run: npx --yes prettier --write .
+      run: npx --yes prettier --write {staged_files}
       glob: "*{.md,.yml,.json}"
       stage_fixed: true
 
     - name: EditorConfig
-      run: git ls-files -z | npx --yes editorconfig-checker
+      run: npx --yes editorconfig-checker {staged_files}
 
     - name: Maintain bin
       glob: "scripts/*"
