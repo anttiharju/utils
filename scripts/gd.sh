@@ -4,4 +4,5 @@ set -eu
 # Git Discard
 
 git reset HEAD
-git checkout .
+git checkout -- .
+git clean -fd
