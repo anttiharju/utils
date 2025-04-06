@@ -3,4 +3,4 @@ set -eu
 
 # Git Discard
 
-git reset HEAD --hard
+git reset --hard
