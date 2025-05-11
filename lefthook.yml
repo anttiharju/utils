@@ -20,6 +20,11 @@ pre-commit:
       glob: "scripts/*"
       run: lefthook run symlink
 
+    - name: Make shell scripts executable
+      glob: "{*.sh,*.bash}"
+      run: chmod +x {staged_files}
+      stage_fixed: true
+
 symlink:
   commands:
     scripts:
