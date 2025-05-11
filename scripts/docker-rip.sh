@@ -52,8 +52,14 @@ docker export "$CONTAINER_ID" | tar -x -C "$TMP_DIR"
 if [ -d "$TMP_DIR$SRC_DIR" ]; then
     # For safety, check if there are files to copy
     if [ "$(ls -A "$TMP_DIR$SRC_DIR")" ]; then
-        rm -rf "$DEST_DIR"
-        cp -r "$TMP_DIR$SRC_DIR" "$DEST_DIR"
+        # Safety check to prevent deleting current or parent directory
+        if [ "$DEST_DIR" != "." ] && [ "$DEST_DIR" != ".." ]; then
+            rm -rf "$DEST_DIR"
+            cp -r "$TMP_DIR$SRC_DIR" "$DEST_DIR"
+        else
+            # For . or .. directories, copy files individually instead of removing first
+            cp -r "$TMP_DIR$SRC_DIR"/* "$DEST_DIR"/
+        fi
         echo "Contents of $SRC_DIR extracted successfully to $DEST_DIR"
     else
         echo "Warning: Directory $SRC_DIR exists but is empty"
