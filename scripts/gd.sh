@@ -4,4 +4,4 @@ set -eu
 # Git Discard
 
 git reset --hard
-git clean -df
+git clean -df --exclude '.flox/**'
