@@ -4,4 +4,4 @@ set -eu
 # Git Discard All
 
 git reset --hard
-git clean -dfx --exclude '.flox/**'
+git clean -dfx -e "*/.flox/**" -e "collections/**"
