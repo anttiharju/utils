@@ -5,4 +5,4 @@ set -eu
 
 git reset --hard
 git clean -df
-git clean -dfx -e "*/.flox/**" -e "collections/**"
+git clean -dfx -e "*/.flox/**" -e "collections/**" -e "automation/bin/**" -e "plugins/**"
