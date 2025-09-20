@@ -1,3 +1,3 @@
 # utils
 
-Add `scripts/` to your path for use. Assumes macOS and Safari as the main browser.
+Archived in favor of https://github.com/anttiharju/nix-darwin
